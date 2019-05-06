@@ -1,54 +1,79 @@
 pipeline {
   agent {
-    node {
-      label 'ubuntu-1604-aufs-stable'
-    }
+    label "jenkins-nodejs"
+  }
+  environment {
+    ORG = 'trilogy-group'
+    APP_NAME = 'voting-app'
+    CHARTMUSEUM_CREDS = credentials('jenkins-x-chartmuseum')
   }
   stages {
-    stage('Build result') {
-      steps {
-        sh 'docker build -t dockersamples/result ./result'
+    stage('CI Build and push snapshot') {
+      when {
+        branch 'PR-*'
       }
-    } 
-    stage('Build vote') {
+      environment {
+        PREVIEW_VERSION = "0.0.0-SNAPSHOT-$BRANCH_NAME-$BUILD_NUMBER"
+        PREVIEW_NAMESPACE = "$APP_NAME-$BRANCH_NAME".toLowerCase()
+        HELM_RELEASE = "$PREVIEW_NAMESPACE".toLowerCase()
+      }
       steps {
-        sh 'docker build -t dockersamples/vote ./vote'
+        container('nodejs') {
+          sh "npm install"
+          sh "CI=true DISPLAY=:99 npm test"
+          sh "export VERSION=$PREVIEW_VERSION && skaffold build -f skaffold.yaml"
+          sh "jx step post build --image $DOCKER_REGISTRY/$ORG/$APP_NAME:$PREVIEW_VERSION"
+          dir('./charts/preview') {
+            sh "make preview"
+            sh "jx preview --app $APP_NAME --dir ../.."
+          }
+        }
       }
     }
-    stage('Build worker') {
-      steps {
-        sh 'docker build -t dockersamples/worker ./worker'
-      }
-    }
-    stage('Push result image') {
+    stage('Build Release') {
       when {
         branch 'master'
       }
       steps {
-        withDockerRegistry(credentialsId: 'dockerbuildbot-index.docker.io', url:'') {
-          sh 'docker push dockersamples/result'
+        container('nodejs') {
+
+          // ensure we're not on a detached head
+          sh "git checkout master"
+          sh "git config --global credential.helper store"
+          sh "jx step git credentials"
+
+          // so we can retrieve the version in later steps
+          sh "echo \$(jx-release-version) > VERSION"
+          sh "jx step tag --version \$(cat VERSION)"
+          sh "npm install"
+          sh "CI=true DISPLAY=:99 npm test"
+          sh "export VERSION=`cat VERSION` && skaffold build -f skaffold.yaml"
+          sh "jx step post build --image $DOCKER_REGISTRY/$ORG/$APP_NAME:\$(cat VERSION)"
         }
       }
     }
-    stage('Push vote image') {
+    stage('Promote to Environments') {
       when {
         branch 'master'
       }
       steps {
-        withDockerRegistry(credentialsId: 'dockerbuildbot-index.docker.io', url:'') {
-          sh 'docker push dockersamples/vote'
+        container('nodejs') {
+          dir('./charts/voting-app') {
+            sh "jx step changelog --batch-mode --version v\$(cat ../../VERSION)"
+
+            // release the helm chart
+            sh "jx step helm release"
+
+            // promote through all 'Auto' promotion Environments
+            sh "jx promote -b --all-auto --timeout 1h --version \$(cat ../../VERSION)"
+          }
         }
       }
     }
-    stage('Push worker image') {
-      when {
-        branch 'master'
-      }
-      steps {
-        withDockerRegistry(credentialsId: 'dockerbuildbot-index.docker.io', url:'') {
-          sh 'docker push dockersamples/worker'
+  }
+  post {
+        always {
+          cleanWs()
         }
-      }
-    }
   }
 }
