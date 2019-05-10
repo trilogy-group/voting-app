@@ -1,0 +1,27 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  annotations:
+    kompose.cmd: kompose convert
+    kompose.version: 1.17.0 (a74acad)
+  creationTimestamp: null
+  labels:
+    io.kompose.service: result
+  name: result
+spec:
+  replicas: 1
+  strategy: {}
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        io.kompose.service: result
+    spec:
+      containers:
+      - image: dockersamples/examplevotingapp_result:before
+        name: result
+        ports:
+        - containerPort: 80
+        resources: {}
+      restartPolicy: Always
+status: {}
