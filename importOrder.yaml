@@ -1,0 +1,16 @@
+
+repo:
+  productName: ddd
+  repoUrl: https://github.com/trilogy-group/voting-app
+build:
+  osname: Debian
+  osversion: Debian 8
+  techStack: Java   
+  runtimeVersion: java 6
+  preBuild: 
+  buildCommand: mvn install
+  postBuild: 
+test:
+  preTest: 
+  testCommand: mvn test
+  postTest: 
