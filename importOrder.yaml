@@ -1,0 +1,57 @@
+
+repo:
+  productName: ddd
+  repoUrl: https://github.com/trilogy-group/voting-app
+build:
+  osname: Centos
+  osversion: Centos 7
+  techStack: Java   
+  runtimeVersion: java 9
+  preBuild: prebuild.sh
+  buildCommand: mvn install
+  postBuild: postbuild.sh
+test:
+  preTest: pretest.sh
+  testCommand: mvn test
+  postTest: posttest.sh
+run:
+  preRun: prerun.sh
+  runCommand: run.sh
+  postRun: postrun.sh
+dependencies:
+  - repo:  https://github.com/trilogy-group/appxyz-serviceabc
+  - repo:  https://github.com/trilogy-group/appxyz-serviceijk
+deploy:
+  serviceName: webserver
+  healthCheck: health.sh     
+  stickySessions: False
+  canUseLb: False
+  stablePersistence: False
+  fixedNetworkIdentifier: False
+storage:
+  - mountPath:  /root
+    size: 20
+  - mountPath:  /mnt
+    size: 10
+portMapping:
+  - internal:  80
+    external:  80     
+    protocol: http
+    public: False
+    url: 
+envVars:
+  - key: DBHOST
+    dev_value: serviceabc:8080
+    stg_value: serviceabc:8080
+    prd_value: serviceabc:8080
+    secret: False     
+  - key: gdhgdh
+    dev_value: serviceijk:6000
+    stg_value: serviceijk:6000
+    prd_value: serviceijk:6000
+    secret: False     
+  - key: PASSWORD
+    dev_value: hsklz1561$*
+    stg_value: hsklz1561$*
+    prd_value: hsklz1561$*
+    secret: True     
