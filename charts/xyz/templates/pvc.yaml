@@ -1,0 +1,16 @@
+{{- if .Values.isstateful -}}
+{{- $root := . -}}
+{{- range $i, $volume := .Values.volumes }}
+---
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  name: pvc-{{ $root.Values.service.name }}-{{$i}}
+spec:
+  accessModes:
+    - {{ $volume.accessMode }}
+  resources:
+    requests:
+      storage: {{ $volume.size }}
+{{- end }}      
+{{- end -}}

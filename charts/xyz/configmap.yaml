@@ -1,0 +1,30 @@
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: xyz-config
+  namespace: jx-preview
+data:
+   : ""
+  
+
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: xyz-config
+  namespace: jx-staging
+data:
+   : ""
+  
+
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: xyz-config
+  namespace: jx-production
+data:
+   : ""
+  
+

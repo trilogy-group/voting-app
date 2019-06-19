@@ -1,0 +1,51 @@
+# This is a YAML-formatted file.
+
+namespaces:
+  preview: jx-preview
+  staging: jx-staging
+  production: jx-production
+
+basedomain: k8.devfactory.com
+
+image:
+  repository: image
+  tag: tag
+  pullPolicy: IfNotPresent
+
+replicaCount: 1
+
+service:
+  name: xyz
+  type: ClusterIP
+  annotations:
+    fabric8.io/expose: "true"
+    fabric8.io/ingress.annotations: "kubernetes.io/ingress.class: nginx"
+
+ports:
+  - name: port80
+    externalPort: 80
+    internalPort: 80
+    public: True
+    url: /
+  
+
+ingress:
+  enabled: true
+
+isstateful: False    
+
+
+resources:
+  limits:
+    cpu: 8000m
+    memory: 30000Mi
+  requests:
+    cpu: 100m
+    memory: 128Mi
+
+
+
+volumes:
+- mountPath: 
+  size: 
+  accessMode: 

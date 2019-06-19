@@ -1,0 +1,28 @@
+{{- if .Values.ingress.enabled -}}
+{{- $root := . -}}
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: {{ template "fullname" . }}
+  labels:
+    chart: "{{ .Chart.Name }}-{{ .Chart.Version | replace "+" "_" }}"
+spec:
+  rules:
+  {{- if eq .Release.Namespace .Values.namespaces.staging }}
+  - host: {{ .Values.service.name }}-staging.{{.Values.basedomain}}
+  {{ else if eq .Release.Namespace .Values.namespaces.production }}
+  - host: {{ .Values.service.name }}.{{.Values.basedomain}}
+  {{ else }}
+  - host: {{ .Values.service.name }}-{{.Release.Namespace}}.{{ .Values.basedomain }}
+  {{ end }}
+    http:
+      paths:
+{{- range $port := .Values.ports }}
+{{- if $port.public }}
+      - path: {{ $port.url }}
+        backend:
+          serviceName: {{ $root.Values.service.name }}
+          servicePort: {{ $port.externalPort }}
+{{ end }}
+{{- end }}
+{{- end -}}
