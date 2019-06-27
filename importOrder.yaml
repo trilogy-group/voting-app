@@ -1,0 +1,17 @@
+
+repo:
+  productName: ddd
+  repoUrl: https://github.com/trilogy-group/voting-app
+build:
+  osname: Centos
+  osversion: Centos 7
+  techStack: Java
+  buildTool: Gradle
+  runtimeVersion: java 7
+  preBuild: 
+  buildCommand: build.sh
+  postBuild: 
+test:
+  preTest: 
+  testCommand: test.sh
+  postTest: 
