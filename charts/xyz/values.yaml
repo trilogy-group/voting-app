@@ -8,8 +8,8 @@ namespaces:
 basedomain: k8.devfactory.com
 
 image:
-  repository: image
-  tag: tag
+  repository: 082830052325.dkr.ecr.us-east-1.amazonaws.com/trilogy-group/voting-app
+  tag: 0.0.18
   pullPolicy: IfNotPresent
 
 replicaCount: 1
