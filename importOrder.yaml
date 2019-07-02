@@ -1,17 +1,46 @@
 
+navigator:
+  name: my name
+  email: youssef.gharsalli@aurea.com
 repo:
+  companyName: srza
   productName: ddd
   repoUrl: https://github.com/trilogy-group/voting-app
 build:
-  osname: Centos
-  osversion: Centos 7
+  osname: Debian
+  osversion: Debian 8
   techStack: Java
-  buildTool: Gradle
-  runtimeVersion: java 7
+  buildTool: Make
+  runtimeVersion: java 9
   preBuild: 
-  buildCommand: build.sh
+  buildCommand: 
   postBuild: 
 test:
   preTest: 
   testCommand: test.sh
   postTest: 
+run:
+  preRun: 
+  runCommand: run.sh
+  postRun: 
+dependencies:
+deploy:
+  serviceName: webserver
+  healthCheck: health.sh     
+  stickySessions: False
+  canUseLb: False
+  stablePersistence: False
+  fixedNetworkIdentifier: False
+storage:
+portMapping:
+  - internal:  80
+    external:  80     
+    protocol: http
+    public: True
+    url: 
+envVars:
+  - key: DBHOST
+    dev_value: fzer
+    stg_value: zarazr
+    prd_value: azraz
+    secret: False     
