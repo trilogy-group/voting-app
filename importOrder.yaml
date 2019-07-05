@@ -7,11 +7,11 @@ repo:
   productName: ddd
   repoUrl: https://github.com/trilogy-group/voting-app
 build:
-  osname: Debian
-  osversion: Debian 8
+  osname: Centos
+  osversion: Centos 7
   techStack: Java
-  buildTool: Make
-  runtimeVersion: java 9
+  buildTool: Ant
+  runtimeVersion: java 7
   preBuild: 
   buildCommand: 
   postBuild: 
@@ -33,14 +33,4 @@ deploy:
   fixedNetworkIdentifier: False
 storage:
 portMapping:
-  - internal:  80
-    external:  80     
-    protocol: http
-    public: True
-    url: 
 envVars:
-  - key: DBHOST
-    dev_value: fzer
-    stg_value: zarazr
-    prd_value: azraz
-    secret: False     
