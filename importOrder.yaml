@@ -9,11 +9,11 @@ repo:
 build:
   osname: Centos
   osversion: Centos 7
-  techStack: Java
-  buildTool: Ant
-  runtimeVersion: java 7
+  techStack: C++
+  buildTool: CMake
+  runtimeVersion: GCC 4.5
   preBuild: 
-  buildCommand: 
+  buildCommand: build.sh
   postBuild: 
 test:
   preTest: 
@@ -22,6 +22,7 @@ test:
 run:
   preRun: 
   runCommand: run.sh
+  userName: root
   postRun: 
 dependencies:
 deploy:
