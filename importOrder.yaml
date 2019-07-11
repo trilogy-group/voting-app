@@ -6,12 +6,13 @@ repo:
   companyName: srza
   productName: ddd
   repoUrl: https://github.com/trilogy-group/voting-app
+  githubToken: 497906aafaa0fabf8de579110e83d84e001faa82
 build:
-  osname: Centos
-  osversion: Centos 7
+  osname: Ubuntu
+  osversion: Ubuntu 16.04 LTS
   techStack: C++
-  buildTool: CMake
-  runtimeVersion: GCC 4.5
+  buildTool: Ant
+  runtimeVersion: GCC 4.7
   preBuild: 
   buildCommand: build.sh
   postBuild: 
@@ -33,5 +34,17 @@ deploy:
   stablePersistence: False
   fixedNetworkIdentifier: False
 storage:
+  - mountPath:  /root
+    size: 20
 portMapping:
+  - internal:  80
+    external:  80     
+    protocol: http
+    public: True
+    url: 
 envVars:
+  - key: DBHOST
+    dev_value: fzer
+    stg_value: zarazr
+    prd_value: azraz
+    secret: False     
