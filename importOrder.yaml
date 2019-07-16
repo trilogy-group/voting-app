@@ -8,11 +8,11 @@ repo:
   repoUrl: https://github.com/trilogy-group/voting-app
   githubTokenSecretId : voting-app/githubToken
 build:
-  osname: Centos
-  osversion: Centos 6
+  osname: Debian
+  osversion: Debian 8
   techStack: C++
-  buildTool: Ant
-  runtimeVersion: GCC 4.3
+  buildTool: Gradle
+  runtimeVersion: GCC 4.6
   preBuild: 
   buildCommand: build.sh
   postBuild: 
