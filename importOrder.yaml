@@ -3,13 +3,13 @@ navigator:
   name: my name
   email: youssef.gharsalli@aurea.com
 repo:
-  companyName: srza
+  companyName: Aurea
   productName: ddd
   repoUrl: https://github.com/trilogy-group/voting-app
   githubTokenSecretId : voting-app/githubToken
 build:
-  osname: Debian
-  osversion: Debian 8
+  osname: Ubuntu
+  osversion: Ubuntu 16.04 LTS
   techStack: C++
   buildTool: Gradle
   runtimeVersion: GCC 4.4
