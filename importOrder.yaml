@@ -8,11 +8,11 @@ repo:
   repoUrl: https://github.com/trilogy-group/voting-app
   githubTokenSecretId : voting-app/githubToken
 build:
-  osname: Debian
-  osversion: Debian 8
-  techStack: Go
-  buildTool: None
-  runtimeVersion: Go 1.8
+  osname: Ubuntu
+  osversion: Ubuntu 18.04 LTS
+  techStack: C++
+  buildTool: Gradle
+  runtimeVersion: GCC 5
   preBuild: 
   buildCommand: build.sh
   postBuild: 
@@ -20,3 +20,34 @@ test:
   preTest: 
   testCommand: test.sh
   postTest: 
+run:
+  preRun: 
+  runCommand: run.sh
+  userName: root
+  postRun: 
+dependencies:
+deploy:
+  serviceName: webserver
+  healthCheck: health.sh     
+  stickySessions: False
+  canUseLb: False
+  stablePersistence: False
+  fixedNetworkIdentifier: False
+storage:
+- mountPath:  /root
+  size: 20
+portMapping:
+- internal:  80
+  external:  80     
+  protocol: http
+  public: True
+  url: 
+envVars:
+- key: NEW_ENV
+  dev_value: newonedev
+  stg_value: newonestg
+  prd_value: newoneprd
+- key: TOKEN
+  dev_secret_id: voting-app/env/TOKEN/dev
+  stg_secret_id: voting-app/env/TOKEN/stg
+  prd_secret_id: voting-app/env/TOKEN/prd
