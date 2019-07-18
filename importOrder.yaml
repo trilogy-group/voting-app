@@ -8,11 +8,11 @@ repo:
   repoUrl: https://github.com/trilogy-group/voting-app
   githubTokenSecretId : voting-app/githubToken
 build:
-  osname: Ubuntu
-  osversion: Ubuntu 18.04 LTS
+  osname: Centos
+  osversion: Centos 7
   techStack: C++
-  buildTool: Gradle
-  runtimeVersion: GCC 5
+  buildTool: Maven
+  runtimeVersion: GCC 4.7
   preBuild: 
   buildCommand: build.sh
   postBuild: 
@@ -26,6 +26,7 @@ run:
   userName: root
   postRun: 
 dependencies:
+- repo:  https://github.com/trilogy-group/appxyz-serviceabc
 deploy:
   serviceName: webserver
   healthCheck: health.sh     
@@ -40,14 +41,18 @@ portMapping:
 - internal:  80
   external:  80     
   protocol: http
-  public: True
+  public: False
   url: 
 envVars:
-- key: NEW_ENV
-  dev_value: newonedev
-  stg_value: newonestg
-  prd_value: newoneprd
-- key: TOKEN
-  dev_secret_id: voting-app/env/TOKEN/dev
-  stg_secret_id: voting-app/env/TOKEN/stg
-  prd_secret_id: voting-app/env/TOKEN/prd
+- key: DBHOST
+  dev_value: localhost
+  stg_value: remotehost
+  prd_value: remotehost
+- key: SVCURL
+  dev_value: serviceabc:8080
+  stg_value: serviceabc:8080
+  prd_value: serviceabc:8080
+- key: PASSWORD
+  dev_secret_id: voting-app/env/PASSWORD/dev
+  stg_secret_id: voting-app/env/PASSWORD/stg
+  prd_secret_id: voting-app/env/PASSWORD/prd
