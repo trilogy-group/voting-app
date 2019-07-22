@@ -9,13 +9,13 @@ repo:
   githubTokenSecretId : devhub-import/voting-app/githubToken
 build:
   osname: Centos
-  osversion: Centos 6
+  osversion: Centos 7
   techStack: C++
-  buildTool: None
-  runtimeVersion: GCC 4.5
-  preBuild: prebuild.sh
+  buildTool: Gradle
+  runtimeVersion: GCC 4.4
+  preBuild: 
   buildCommand: build.sh
-  postBuild: postbuild.sh
+  postBuild: 
 test:
   preTest: 
   testCommand: test.sh
@@ -31,14 +31,6 @@ deploy:
 storage:
 portMapping:
 envVars:
-- key: DBHOST
-  dev_value: localhost
-  stg_value: remotehost
-  prd_value: remotehost
-- key: PASSWORD
-  dev_secret_id: devhub-import/voting-app/env/PASSWORD/dev
-  stg_secret_id: devhub-import/voting-app/env/PASSWORD/stg
-  prd_secret_id: devhub-import/voting-app/env/PASSWORD/prd
 run:
   installScript: install.sh
   runCommand: run.sh
