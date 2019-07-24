@@ -4,16 +4,16 @@ navigator:
   email: youssef.gharsalli@aurea.com
 repo:
   companyName: srza
-  productName: ddd
+  productName: CodefIx
   repoUrl: https://github.com/trilogy-group/voting-app
   githubTokenSecretId : devhub-import/voting-app/githubToken
 build:
   osname: Centos
-  osversion: Centos 6
+  osversion: Centos 7
   techStack: C++
-  buildTool: Maven
-  runtimeVersion: GCC 4.3
-  preBuild: 
+  buildTool: Make
+  runtimeVersion: GCC 4.5
+  preBuild: prebuild.sh
   buildCommand: build.sh
   postBuild: 
 test:
