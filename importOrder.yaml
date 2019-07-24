@@ -1,18 +1,18 @@
 
 navigator:
-  name: my name
+  name: Youssef
   email: youssef.gharsalli@aurea.com
 repo:
   companyName: srza
-  productName: CodefIx
+  productName: ddd
   repoUrl: https://github.com/trilogy-group/voting-app
   githubTokenSecretId : devhub-import/voting-app/githubToken
 build:
   osname: Centos
-  osversion: Centos 7
+  osversion: Centos 6
   techStack: C++
   buildTool: Make
-  runtimeVersion: GCC 4.5
+  runtimeVersion: GCC 4.4
   preBuild: prebuild.sh
   buildCommand: build.sh
   postBuild: 
