@@ -1,22 +1,47 @@
 
 navigator:
-  name: Youssef
+  name: Youssef Gharsalli
   email: youssef.gharsalli@aurea.com
 repo:
-  companyName: srza
-  productName: ddd
+  companyName: Aurea
+  productName: VotingApp
   repoUrl: https://github.com/trilogy-group/voting-app
-  githubTokenSecretId : devhub-import/voting-app/githubToken
+  githubTokenSecretId: devhub-import/voting-app/githubToken
 build:
-  osname: Centos
-  osversion: Centos 6
-  techStack: C++
-  buildTool: Make
-  runtimeVersion: GCC 4.4
+  osname: Ubuntu
+  osversion: Ubuntu 16.04 LTS
+  techStack: Java
+  buildTool: Maven
+  runtimeVersion: java 8
   preBuild: prebuild.sh
   buildCommand: build.sh
-  postBuild: 
+  postBuild: postbuild.sh
 test:
   preTest: 
   testCommand: test.sh
   postTest: 
+dependencies:
+deploy:
+  serviceName: webserver
+  deploymentCheck: health.sh     
+  stickySessions: False
+  canUseLb: False
+  stablePersistence: False
+  fixedNetworkIdentifier: False
+storage:
+portMapping:
+envVars:
+- key: DBHOST
+  dev_value: localhost
+  stg_value: remotehost
+  prd_value: remotehost
+- key: PASSWORD
+  dev_secret_id: devhub-import/voting-app/env/PASSWORD/dev
+  stg_secret_id: devhub-import/voting-app/env/PASSWORD/stg
+  prd_secret_id: devhub-import/voting-app/env/PASSWORD/prd
+run:
+  installScript: install.sh
+  runCommand: run.sh
+  userName: root   
+meta:
+  linkToPrefilledWizard: http://import-order.k8.devfactory.com/interview?i=docassemble.playground1%3Amain.yaml&session=Q6DAMXMX0O57M0WP9XCMJHMH55CHVN7M
