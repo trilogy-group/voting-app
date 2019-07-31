@@ -4,7 +4,7 @@ navigator:
   email: youssef.gharsalli@aurea.com
 repo:
   companyName: Devfactory
-  productName: CodefIx
+  productName: ddd
   repoUrl: https://github.com/trilogy-group/voting-app
   githubTokenSecretId: devhub-import/voting-app/githubToken
 build:
@@ -14,7 +14,7 @@ build:
   buildTool: CMake
   runtimeVersion: GCC 4.4
   preBuild: 
-  buildCommand: build.sh
+  buildCommand: 
   postBuild: 
 test:
   preTest: 
