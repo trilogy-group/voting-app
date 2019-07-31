@@ -10,11 +10,11 @@ repo:
 build:
   osname: Ubuntu
   osversion: Ubuntu 16.04 LTS
-  techStack: Go
-  buildTool: Make
-  runtimeVersion: Go 1.11
+  techStack: C++
+  buildTool: CMake
+  runtimeVersion: GCC 4.4
   preBuild: 
-  buildCommand: 
+  buildCommand: build.sh
   postBuild: 
 test:
   preTest: 
