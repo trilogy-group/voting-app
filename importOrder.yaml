@@ -1,22 +1,62 @@
 
 navigator:
-  name: Youssef Gharsalli
-  email: youssef.gharsalli@aurea.com
+  name: System Administrator
+  email: admin@admin.com
 repo:
   companyName: Devfactory
   productName: ddd
   repoUrl: https://github.com/trilogy-group/voting-app
+  repoType: Final deployable
   githubTokenSecretId: devhub-import/voting-app/githubToken
+builddeps:
+- repo:  https://github.com/trilogy-group/appxyz-serviceijk
 build:
-  osname: Ubuntu
-  osversion: Ubuntu 16.04 LTS
-  techStack: C++
-  buildTool: CMake
-  runtimeVersion: GCC 4.4
+  techStack: Node.js
+  buildos: Debian 9
+  runtimeVersion: Node.js 10
+  buildTool: npm     
   preBuild: 
-  buildCommand: 
-  postBuild: 
+  buildCommand: npm run build 
+  postBuild:     
 test:
+  utframework: Mocha
   preTest: 
-  testCommand: test.sh
-  postTest: 
+  testCommand: npm test 
+deploydeps:
+- repo:  https://github.com/trilogy-group/appxyz-serviceabc
+deploy:
+  serviceName: webserver
+  deploymentCheck: health.sh     
+  stickySessions: False
+  canUseLb: False
+  stablePersistence: False
+  fixedNetworkIdentifier: False
+storage:
+- name: data
+  mountPath:  /data
+  size: 20
+ports:
+- name:  port1
+  number:  80
+  protocol: http
+  public: False
+envVars:
+- key: zeze
+  secret: False
+  service: False
+  dev_value: ergg
+  stg_value: zrgtg
+  prd_value: sfgfdd     
+- key: HOSTNAME
+  secret: False
+  service: True
+  dev_value: serviceabc
+  stg_value: serviceabc
+  prd_value: serviceabc     
+run:
+  dockerized: False
+  runtimeos: Debian 8
+  runtimeenv: Node.js 10
+  installScript: install.sh
+  runCommand: run.sh
+  userName: root
