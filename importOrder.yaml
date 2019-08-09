@@ -5,72 +5,20 @@ navigator:
   email: admin@admin.com
 repo:
   companyName: Devfactory
-  productName: AAR
+  productName: HANDAPPS
   repoUrl: https://github.com/trilogy-group/voting-app
-  repoType: Final deployable
+  repoType: Distributable artifacts
   githubTokenSecretId: devhub-import/voting-app/githubToken
-builddeps:
-- repo:  https://github.com/trilogy-group/appxyz-serviceijk
-- repo:  https://github.com/trilogy-group/appxyz-serviceabc
+buildDeps:
 build:
   techStack: Java
-  buildos: Debian 8
-  toolchainVersion: Oracle jdk 9
+  buildOs: Debian 8
+  toolchainVersion: OpenJDK jdk 11
   buildTool: Gradle 3     
-  preBuild: prebuild.sh
-  buildCommand: gradle build --output=/tmp/build
-  postBuild: postbuild.sh    
+  preBuild: 
+  buildCommand: gradle build 
+  postBuild:     
 test:
-  utframework: JUnit
-  preTest: pretest.sh
-  testCommand: gradle test --all
-deploydeps:
-- repo:  https://github.com/trilogy-group/appxyz-serviceijk
-- repo:  https://github.com/trilogy-group/appxyz-serviceabc
-deploy:
-  serviceName: webserver
-  deploymentCheck: health.sh     
-  stickySessions: False
-  canUseLb: True
-  stablePersistence: False
-  fixedNetworkIdentifier: False
-storage:
-- name: data
-  mountPath:  /data
-  size: 20
-- name: dta
-  mountPath:  /mnt
-  size: 10
-ports:
-- name:  port1
-  number:  80
-  protocol: http
-  public: True
-- name:  port2
-  number:  443
-  protocol: https
-  public: True
-- name:  port3
-  number:  5000
-  protocol: tcp
-  public: False
-envVars:
-- key: zeze
-  secret: False
-  service: False
-  dev_value: ergg
-  stg_value: zrgtg
-  prd_value: sfgfdd     
-- key: password
-  secret: False
-  service: False
-  dev_value: klqhsjmofjzajfzajùpfjzaùpjùpjùm
-  stg_value: mlzjfojzeomfjoezjfozjfjjfe
-  prd_value: jzefpjmzejfmoezjfmoezjfmezjfmez     
-run:
-  dockerized: False
-  runtimeos: Centos 7
-  runtimeenv: Oracle jre 9
-  installScript: install.sh
-  runCommand: run.sh
-  userName: root
+  utFramework: JUnit
+  preTest: 
+  testCommand: gradle test 
