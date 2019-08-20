@@ -4,21 +4,42 @@ navigator:
   name: System Administrator
   email: admin@admin.com
 repo:
-  companyName: Devfactory
-  productName: HANDAPPS
+  companyName: DevFactory
+  productName: AAR
   repoUrl: https://github.com/trilogy-group/voting-app
-  repoType: Distributable artifacts
+  repoType: Final deployable
   githubTokenSecretId: devhub-import/voting-app/githubToken
 buildDeps:
 build:
   techStack: Java
-  buildOs: Debian 8
+  buildOs: Centos 6
   toolchainVersion: OpenJDK jdk 11
-  buildTool: Gradle 3     
+  buildTool: Maven 3
   preBuild: 
-  buildCommand: gradle build 
-  postBuild:     
+  buildCommand: mvn compile 
 test:
   utFramework: JUnit
   preTest: 
-  testCommand: gradle test 
+  testCommand: mvn test 
+package:
+  packageTool: Maven
+  packageCommand: 
+  artifactDir: ./target     
+deployDeps:
+deploy:
+  serviceName: webservice
+  deploymentCheck: isOk.sh     
+  stickySessions: False
+  canUseLb: False
+  stablePersistence: False
+  fixedNetworkIdentifier: False
+storage:
+ports:
+envVars:
+run:
+  dockerized: False
+  runtimeOs: Debian 8
+  runtimeEnv: OpenJDK jre 11
+  installScript: install.sh
+  runCommand: run.sh
+  userName: root
